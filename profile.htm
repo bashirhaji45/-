@@ -3,106 +3,140 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ملفي الشخصي</title>
+  <title>الملف الشخصي (تعديل)</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
-<body class="bg-gradient-to-br from-green-100 to-green-300 flex items-center justify-center min-h-screen">
+<body class="bg-gray-50 min-h-screen">
 
-<div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
-  <div class="text-center mb-6">
-    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="شعار جامعتي" class="mx-auto w-20 h-20">
-    <h1 class="text-2xl font-bold mt-2">جامعتي المميزة</h1>
+<header class="bg-white shadow-md p-4 flex justify-between items-center">
+  <div class="flex items-center gap-2">
+    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="w-10 h-10" alt="شعار جامعتي">
+    <h1 class="text-xl font-bold">جامعتي المميزة</h1>
   </div>
+  <button id="logout-btn" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg">تسجيل الخروج</button>
+</header>
 
-  <h2 class="text-xl font-semibold text-center mb-6">معلوماتي الشخصية</h2>
+<main class="p-6">
+  <div class="bg-white rounded-lg shadow-md p-6">
+    <h2 class="text-2xl font-bold mb-6 text-center">الملف الشخصي</h2>
 
-  <div id="profile-data" class="space-y-4 text-gray-700">
-    <p><strong>الاسم:</strong> <span id="name">...</span></p>
-    <p><strong>البريد الإلكتروني:</strong> <span id="email">...</span></p>
-    <p><strong>الكلية:</strong> <span id="faculty">...</span></p>
-    <p><strong>التخصص:</strong> <span id="major">...</span></p>
-    <p><strong>الرقم الجامعي:</strong> <span id="student_id">...</span></p>
-    <p><strong>الفصل الدراسي:</strong> <span id="semester">...</span></p>
+    <form id="profileForm" class="space-y-4">
+      <!-- سيتم تعبئة النموذج تلقائياً -->
+    </form>
+
+    <div class="flex justify-center mt-6">
+      <button id="saveChanges" class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg text-lg">
+        حفظ التغييرات
+      </button>
+    </div>
   </div>
-<div class="mt-6 text-center">
-  <button id="edit-btn" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">
-    تعديل البيانات
-  </button>
-</div>
-  <div class="mt-6 text-center">
-    <a href="home.html" class="text-blue-500 hover:underline">العودة للصفحة الرئيسية</a>
-  </div>
-</div>
+</main>
+
 <!-- مكتبات فايربيس -->
 <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore-compat.js"></script>
-<!-- Firebase -->
+
 <script>
-const firebaseConfig = {
-  apiKey: "AIzaSyAoh8yHCClXB9n-iv8e-nWuagKvRUG9IPw",
-  authDomain: "sudan-auto-hub.firebaseapp.com",
-  projectId: "sudan-auto-hub",
-  storageBucket: "sudan-auto-hub.appspot.com",
-  messagingSenderId: "918396323666",
-  appId: "1:918396323666:web:2fcb9092f87217652bdc8b"
-};
-firebase.initializeApp(firebaseConfig);
+  const firebaseConfig = {
+    apiKey: "AIzaSyAoh8yHCClXB9n-iv8e-nWuagKvRUG9IPw",
+    authDomain: "sudan-auto-hub.firebaseapp.com",
+    projectId: "sudan-auto-hub",
+    storageBucket: "sudan-auto-hub.appspot.com",
+    messagingSenderId: "918396323666",
+    appId: "1:918396323666:web:2fcb9092f87217652bdc8b"
+  };
 
-const db = firebase.firestore();
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
 
-firebase.auth().onAuthStateChanged(async function(user) {
-  if (!user) {
-    window.location.href = "index.html";
-  } else {
-    const userRef = db.collection("users").doc(user.uid);
-    const userDoc = await userRef.get();
-    if (userDoc.exists) {
-      const data = userDoc.data();
-      document.getElementById("name").textContent = data.name;
-      document.getElementById("email").textContent = data.email;
-      document.getElementById("faculty").textContent = data.faculty;
-      document.getElementById("major").textContent = data.major;
-      document.getElementById("student_id").textContent = data.student_id;
-      document.getElementById("semester").textContent = data.semester;
+  let currentUser;
 
-      document.getElementById('edit-btn').addEventListener('click', async () => {
-        const { value: formValues } = await Swal.fire({
-          title: 'تعديل بياناتي',
-          html:
-            `<input id="swal-input1" class="swal2-input" placeholder="الاسم" value="${data.name}">
-             <input id="swal-input2" class="swal2-input" placeholder="الكلية" value="${data.faculty}">
-             <input id="swal-input3" class="swal2-input" placeholder="التخصص" value="${data.major}">
-             <input id="swal-input4" class="swal2-input" placeholder="الرقم الجامعي" value="${data.student_id}">
-             <input id="swal-input5" class="swal2-input" placeholder="الفصل الدراسي" value="${data.semester}">`,
-          focusConfirm: false,
-          showCancelButton: true,
-          confirmButtonText: 'حفظ',
-          cancelButtonText: 'إلغاء',
-          preConfirm: () => {
-            return {
-              name: document.getElementById('swal-input1').value,
-              faculty: document.getElementById('swal-input2').value,
-              major: document.getElementById('swal-input3').value,
-              student_id: document.getElementById('swal-input4').value,
-              semester: document.getElementById('swal-input5').value
+  // تسجيل الخروج
+  document.getElementById('logout-btn').addEventListener('click', () => {
+    auth.signOut().then(() => {
+      window.location.href = "index.html";
+    });
+  });
+
+  // عرض وتعديل بيانات الطالب
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      currentUser = user;
+      db.collection('students').doc(user.uid).get()
+        .then(doc => {
+          if (doc.exists) {
+            const data = doc.data();
+            const profileForm = document.getElementById('profileForm');
+            profileForm.innerHTML = '';
+
+            for (const key in data) {
+              const value = data[key];
+              if (key === 'createdAt' || key === 'email') continue; // تجاهل createdAt و email
+
+              const fieldDiv = document.createElement('div');
+              fieldDiv.innerHTML = `
+                <label class="block text-gray-700 font-semibold mb-1">${getArabicFieldName(key)}:</label>
+                <input type="text" name="${key}" value="${value}" class="w-full border-gray-300 rounded-lg p-3 focus:outline-none focus:ring focus:border-blue-300">
+              `;
+              profileForm.appendChild(fieldDiv);
             }
-          }
-        });
 
-        if (formValues) {
-          await userRef.update(formValues);
-          Swal.fire('تم!', 'تم تحديث بياناتك بنجاح.', 'success').then(() => {
-            location.reload();
-          });
-        }
-      });
+          } else {
+            console.log("لا توجد بيانات لهذا الطالب.");
+          }
+        })
+        .catch(error => {
+          console.error("خطأ في جلب البيانات:", error);
+        });
     } else {
-      Swal.fire('خطأ', 'تعذر تحميل البيانات.', 'error');
+      window.location.href = "index.html";
     }
+  });
+
+  // حفظ التغييرات
+  document.getElementById('saveChanges').addEventListener('click', (e) => {
+    e.preventDefault();
+    const form = document.getElementById('profileForm');
+    const updatedData = {};
+
+    for (const input of form.querySelectorAll('input[name]')) {
+      updatedData[input.name] = input.value;
+    }
+
+    db.collection('students').doc(currentUser.uid).update(updatedData)
+      .then(() => {
+        Swal.fire({
+          icon: 'success',
+          title: 'تم الحفظ!',
+          text: 'تم تحديث بيانات الملف الشخصي بنجاح.'
+        });
+      })
+      .catch(error => {
+        console.error("خطأ أثناء الحفظ:", error);
+        Swal.fire({
+          icon: 'error',
+          title: 'خطأ',
+          text: 'حدث خطأ أثناء تحديث البيانات.'
+        });
+      });
+  });
+
+  // وظيفة لتحويل اسم الحقل إلى عربي
+  function getArabicFieldName(key) {
+    const fields = {
+      name: "الاسم",
+      studentId: "الرقم الجامعي",
+      major: "التخصص",
+      year: "سنة الدراسة",
+      phone: "رقم الهاتف"
+      // أضف المزيد هنا حسب الحقول التي عندك
+    };
+    return fields[key] || key;
   }
-});
 </script>
+
 </body>
 </html>

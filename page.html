@@ -18,20 +18,13 @@
 </header>
 
 <main class="p-6">
-  <div class="bg-white rounded-lg shadow-md p-6">
-    <h2 id="studentName" class="text-2xl font-bold mb-2">جارٍ التحميل...</h2>
-    <p id="studentEmail" class="text-gray-600 mb-4"></p>
+  <div class="bg-white rounded-lg shadow-md p-6 text-center">
+    <h2 id="studentName" class="text-2xl font-bold mb-4">جارٍ التحميل...</h2>
 
-    <div class="mt-6 flex flex-wrap gap-4">
-      <a href="courses.html" class="bg-blue-100 hover:bg-blue-200 text-blue-800 px-4 py-2 rounded-lg flex items-center gap-2">
-        <i class="fas fa-book"></i> المقررات
-      </a>
-      <a href="grades.html" class="bg-green-100 hover:bg-green-200 text-green-800 px-4 py-2 rounded-lg flex items-center gap-2">
-        <i class="fas fa-graduation-cap"></i> الدرجات
-      </a>
-      <a href="schedule.html" class="bg-purple-100 hover:bg-purple-200 text-purple-800 px-4 py-2 rounded-lg flex items-center gap-2">
-        <i class="fas fa-calendar-alt"></i> الجدول الدراسي
-      </a>
+    <div class="flex justify-center gap-4 mt-6">
+      <a href="courses.html" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg text-lg">المقررات</a>
+      <a href="grades.html" class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg text-lg">الدرجات</a>
+      <a href="schedule.html" class="bg-purple-500 hover:bg-purple-600 text-white px-6 py-3 rounded-lg text-lg">الجدول الدراسي</a>
     </div>
   </div>
 </main>
@@ -39,9 +32,9 @@
 <!-- مكتبات فايربيس -->
 <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore-compat.js"></script>
 
 <script>
-  // إعداد فايربيس
   const firebaseConfig = {
     apiKey: "AIzaSyAoh8yHCClXB9n-iv8e-nWuagKvRUG9IPw",
     authDomain: "sudan-auto-hub.firebaseapp.com",
@@ -53,51 +46,31 @@
 
   firebase.initializeApp(firebaseConfig);
   const auth = firebase.auth();
+  const db = firebase.firestore();
 
-  // تحميل بيانات المستخدم من localStorage
-  window.addEventListener('DOMContentLoaded', () => {
-    const name = localStorage.getItem('userName');
-    const email = localStorage.getItem('userEmail');
-
-    if (name) {
-      document.getElementById('studentName').innerText = `مرحباً ${name}`;
-    } else {
-      document.getElementById('studentName').innerText = 'مرحباً بك';
-    }
-
-    if (email) {
-      document.getElementById('studentEmail').innerText = email;
-    }
-  });
-
-  // زر تسجيل الخروج
+  // تسجيل الخروج
   document.getElementById('logout-btn').addEventListener('click', () => {
-    Swal.fire({
-      title: 'تأكيد تسجيل الخروج',
-      text: "هل أنت متأكد أنك تريد تسجيل الخروج؟",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'نعم، تسجيل الخروج'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        auth.signOut().then(() => {
-          // حذف بيانات المستخدم من localStorage
-          localStorage.removeItem('userName');
-          localStorage.removeItem('userEmail');
-          window.location.href = 'index.html'; // إعادة توجيه لصفحة تسجيل الدخول
-        }).catch(error => {
-          console.error("خطأ أثناء تسجيل الخروج:", error);
-        });
-      }
+    auth.signOut().then(() => {
+      window.location.href = "index.html";
     });
   });
 
   // التحقق من تسجيل الدخول
   auth.onAuthStateChanged(user => {
-    if (!user) {
-      // إذا لم يتم تسجيل دخول، توجيه المستخدم لصفحة الدخول
+    if (user) {
+      db.collection('students').doc(user.uid).get()
+        .then(doc => {
+          if (doc.exists) {
+            const data = doc.data();
+            document.getElementById('studentName').innerText = `مرحباً ${data.name || "طالب"}`;
+          } else {
+            console.log("لا توجد بيانات لهذا الطالب.");
+          }
+        })
+        .catch(error => {
+          console.error("خطأ في جلب البيانات:", error);
+        });
+    } else {
       window.location.href = "index.html";
     }
   });

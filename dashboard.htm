@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>لوحة التحكم</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 flex min-h-screen">
+
+<div class="main-content w-full">
+  <header class="bg-white shadow-sm p-4 flex justify-between items-center">
+    <h1 class="text-xl font-semibold flex items-center gap-2">
+      <i class="fas fa-chart-line text-purple-500"></i> لوحة التحكم
+    </h1>
+    <div class="flex gap-2">
+      <button class="bg-gray-200 hover:bg-gray-300 px-4 py-1 rounded-full text-sm">EN</button>
+      <button class="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded-full text-sm">تسجيل الخروج</button>
+    </div>
+  </header>
+
+  <main class="p-6">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-white p-6 rounded-lg shadow flex items-center justify-between">
+        <div>
+          <h2 class="text-lg font-bold">عدد الكورسات</h2>
+          <p class="text-2xl mt-2">5</p>
+        </div>
+        <i class="fas fa-book-open text-blue-500 text-3xl"></i>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow flex items-center justify-between">
+        <div>
+          <h2 class="text-lg font-bold">عدد الدرجات</h2>
+          <p class="text-2xl mt-2">12</p>
+        </div>
+        <i class="fas fa-certificate text-green-500 text-3xl"></i>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow flex items-center justify-between">
+        <div>
+          <h2 class="text-lg font-bold">رسائل جديدة</h2>
+          <p class="text-2xl mt-2">3</p>
+        </div>
+        <i class="fas fa-envelope text-red-500 text-3xl"></i>
+      </div>
+    </div>
+  </main>
+</div>
+
+</body>
+</html>

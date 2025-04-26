@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>الرئيسية</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+<header class="bg-white shadow-md p-4 flex justify-between items-center">
+  <div class="flex items-center gap-2">
+    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="w-10 h-10" alt="شعار جامعتي">
+    <h1 class="text-xl font-bold">جامعتي المميزة</h1>
+  </div>
+  <button id="logout-btn" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg">تسجيل الخروج</button>
+</header>
+
+<main class="p-6">
+  <div class="bg-white p-6 rounded-lg shadow-md text-center">
+    <h2 id="welcome-name" class="text-2xl font-bold mb-4">مرحباً!</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+      <a href="courses.html" class="bg-blue-100 hover:bg-blue-200 text-blue-800 p-4 rounded-lg flex items-center justify-center gap-2">
+        <i class="fas fa-book"></i> المقررات
+      </a>
+      <a href="grades.html" class="bg-green-100 hover:bg-green-200 text-green-800 p-4 rounded-lg flex items-center justify-center gap-2">
+        <i class="fas fa-graduation-cap"></i> الدرجات
+      </a>
+      <a href="schedule.html" class="bg-purple-100 hover:bg-purple-200 text-purple-800 p-4 rounded-lg flex items-center justify-center gap-2">
+        <i class="fas fa-calendar-alt"></i> الجدول الدراسي
+      </a>
+    </div>
+  </div>
+</main>
+
+<!-- مكتبات -->
+<script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyAoh8yHCClXB9n-iv8e-nWuagKvRUG9IPw",
+    authDomain: "sudan-auto-hub.firebaseapp.com",
+    projectId: "sudan-auto-hub",
+    storageBucket: "sudan-auto-hub.appspot.com",
+    messagingSenderId: "918396323666",
+    appId: "1:918396323666:web:2fcb9092f87217652bdc8b"
+  };
+  firebase.initializeApp(firebaseConfig);
+
+  const userId = localStorage.getItem('userId');
+
+  if (!userId) {
+    window.location.href = 'index.html';
+  } else {
+    firebase.firestore().collection('users').doc(userId).get()
+      .then((doc) => {
+        if (doc.exists) {
+          const userData = doc.data();
+          document.getElementById('welcome-name').textContent = `مرحباً، ${userData.name}!`;
+        } else {
+          console.log("لا توجد بيانات للمستخدم");
+        }
+      })
+      .catch((error) => {
+        console.error("حدث خطأ:", error);
+      });
+  }
+
+  const logoutBtn = document.getElementById('logout-btn');
+  logoutBtn.addEventListener('click', function() {
+    firebase.auth().signOut().then(() => {
+      localStorage.removeItem('userId');
+      window.location.href = 'login.html';
+    });
+  });
+</script>
+
+</body>
+</html>

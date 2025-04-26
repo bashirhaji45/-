@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>الصفحة الرئيسية</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script>
+    let lang = localStorage.getItem('lang') || 'ar';
+    const username = localStorage.getItem('username') || '';
+
+    function toggleLang() {
+      lang = lang === 'ar' ? 'en' : 'ar';
+      localStorage.setItem('lang', lang);
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+      updateText();
+    }
+
+    function updateText() {
+      const greeting = lang === 'ar' ? 
+        `مرحبًا ${username} في تطبيقك الجامعي!` : 
+        `Hi ${username}, welcome to your university app!`;
+      
+      document.getElementById("pageTitle").innerText = lang === 'ar' ? 'الصفحة الرئيسية' : 'Home Page';
+      document.getElementById("welcome").innerText = greeting;
+      document.getElementById("profile").innerText = lang === 'ar' ? 'الملف الشخصي' : 'Profile';
+      document.getElementById("courses").innerText = lang === 'ar' ? 'المقررات' : 'Courses';
+      document.getElementById("schedule").innerText = lang === 'ar' ? 'الجدول الدراسي' : 'Schedule';
+      document.getElementById("logout").innerText = lang === 'ar' ? 'تسجيل الخروج' : 'Logout';
+      document.getElementById("langToggle").innerText = lang === 'ar' ? 'EN' : 'AR';
+    }
+
+    function logout() {
+      localStorage.removeItem('username');
+      window.location.href = "index.html";
+    }
+
+    window.onload = () => {
+      if (!username) {
+        window.location.href = "index.html";
+      }
+      updateText();
+    };
+  </script>
+</head>
+<body class="bg-blue-50 min-h-screen flex flex-col items-center justify-center p-6 space-y-6">
+  <div class="text-center">
+    <h1 id="pageTitle" class="text-3xl font-bold text-blue-700 mb-4">الصفحة الرئيسية</h1>
+    <p id="welcome" class="text-lg text-gray-700"></p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-4xl">
+    <a href="#" id="profile" class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow text-center">
+      الملف الشخصي
+    </a>
+    <a href="#" id="courses" class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow text-center">
+      المقررات
+    </a>
+    <a href="#" id="schedule" class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow text-center">
+      الجدول الدراسي
+    </a>
+  </div>
+
+  <div class="flex space-x-2 space-x-reverse">
+    <button onclick="toggleLang()" id="langToggle" class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-full font-semibold text-sm">
+      EN
+    </button>
+
+    <button onclick="logout()" id="logout" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-full text-sm font-semibold text-center">
+      تسجيل الخروج
+    </button>
+  </div>
+</body>
+</html>

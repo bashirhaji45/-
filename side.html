@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>الصفحة الرئيسية</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+  <script>
+    let lang = localStorage.getItem('lang') || 'ar';
+    const username = localStorage.getItem('username') || '';
+
+    function toggleLang() {
+      lang = lang === 'ar' ? 'en' : 'ar';
+      localStorage.setItem('lang', lang);
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+      updateText();
+    }
+
+    function updateText() {
+      const greeting = lang === 'ar' ? 
+        `مرحباً ${username} 👋` : 
+        `Welcome ${username} 👋`;
+      
+      document.getElementById("welcome").innerHTML = greeting;
+      document.getElementById("subtitle").innerText = lang === 'ar' ? 
+        "ما الذي تريد القيام به اليوم؟" : "What would you like to do today?";
+      document.getElementById("profileCard").innerText = lang === 'ar' ? "الملف الشخصي" : "Profile";
+      document.getElementById("coursesCard").innerText = lang === 'ar' ? "المقررات الدراسية" : "Courses";
+      document.getElementById("scheduleCard").innerText = lang === 'ar' ? "الجدول الزمني" : "Schedule";
+      document.getElementById("gradesCard").innerText = lang === 'ar' ? "الدرجات" : "Grades";
+      document.getElementById("announcementsCard").innerText = lang === 'ar' ? "الإعلانات" : "Announcements";
+      document.getElementById("resourcesCard").innerText = lang === 'ar' ? "الموارد" : "Resources";
+      document.getElementById("logout").innerText = lang === 'ar' ? "تسجيل الخروج" : "Logout";
+      document.getElementById("langToggle").innerText = lang === 'ar' ? "EN" : "AR";
+    }
+
+    function logout() {
+      localStorage.removeItem('username');
+      window.location.href = "index.html";
+    }
+
+    window.onload = () => {
+      if (!username) window.location.href = "index.html";
+      updateText();
+    };
+  </script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <!-- Header -->
+  <header class="bg-blue-600 text-white p-4 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold">جامعتي</h1>
+      <div class="flex space-x-2 space-x-reverse">
+        <button onclick="toggleLang()" id="langToggle" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-4 py-1 rounded-full text-sm font-semibold">
+          EN
+        </button>
+        <button onclick="logout()" id="logout" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-4 py-1 rounded-full text-sm font-semibold">
+          تسجيل الخروج
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container mx-auto p-6">
+    <div class="mb-8 text-center">
+      <h2 id="welcome" class="text-3xl font-bold text-gray-800 mb-2"></h2>
+      <p id="subtitle" class="text-gray-600 text-lg"></p>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Profile Card -->
+      <a href="#" class="card-hover bg-white p-6 rounded-xl shadow-md border-l-4 border-blue-500 flex items-start">
+        <div class="bg-blue-100 p-3 rounded-full mr-4">
+          <i class="fas fa-user text-blue-600"></i>
+        </div>
+        <div>
+          <h3 id="profileCard" class="font-semibold text-lg mb-1">الملف الشخصي</h3>
+          <p class="text-gray-600 text-sm">إدارة معلوماتك الشخصية</p>
+        </div>
+      </a>
+
+      <!-- Courses Card -->
+      <a href="#" class="card-hover bg-white p-6 rounded-xl shadow-md border-l-4 border-green-500 flex items-start">
+        <div class="bg-green-100 p-3 rounded-full mr-4">
+          <i class="fas fa-book text-green-600"></i>
+        </div>
+        <div>
+          <h3 id="coursesCard" class="font-semibold text-lg mb-1">المقررات الدراسية</h3>
+          <p class="text-gray-600 text-sm">عرض جميع مقرراتك</p>
+        </div>
+      </a>
+
+      <!-- Schedule Card -->
+      <a href="#" class="card-hover bg-white p-6 rounded-xl shadow-md border-l-4 border-purple-500 flex items-start">
+        <div class="bg-purple-100 p-3 rounded-full mr-4">
+          <i class="fas fa-calendar-alt text-purple-600"></i>
+        </div>
+        <div>
+          <h3 id="scheduleCard" class="font-semibold text-lg mb-1">الجدول الزمني</h3>
+          <p class="text-gray-600 text-sm">عرض جدولك الأسبوعي</p>
+        </div>
+      </a>
+
+      <!-- Grades Card -->
+      <a href="#" class="card-hover bg-white p-6 rounded-xl shadow-md border-l-4 border-yellow-500 flex items-start">
+        <div class="bg-yellow-100 p-3 rounded-full mr-4">
+          <i class="fas fa-chart-bar text-yellow-600"></i>
+        </div>
+        <div>
+          <h3 id="gradesCard" class="font-semibold text-lg mb-1">الدرجات</h3>
+          <p class="text-gray-600 text-sm">عرض نتائجك الأكاديمية</p>
+        </div>
+      </a>
+
+      <!-- Announcements Card -->
+      <a href="#" class="card-hover bg-white p-6 rounded-xl shadow-md border-l-4 border-red-500 flex items-start">
+        <div class="bg-red-100 p-3 rounded-full mr-4">
+          <i class="fas fa-bullhorn text-red-600"></i>
+        </div>
+        <div>
+          <h3 id="announcementsCard" class="font-semibold text-lg mb-1">الإعلانات</h3>
+          <p class="text-gray-600 text-sm">آخر التحديثات المهمة</p>
+        </div>
+      </a>
+
+      <!-- Resources Card -->
+      <a href="#" class="card-hover bg-white p-6 rounded-xl shadow-md border-l-4 border-indigo-500 flex items-start">
+        <div class="bg-indigo-100 p-3 rounded-full mr-4">
+          <i class="fas fa-folder-open text-indigo-600"></i>
+        </div>
+        <div>
+          <h3 id="resourcesCard" class="font-semibold text-lg mb-1">الموارد</h3>
+          <p class="text-gray-600 text-sm">المواد الدراسية والمراجع</p>
+        </div>
+      </a>
+    </div>
+  </main>
+</body>
+</html>

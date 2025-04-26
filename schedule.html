@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>الجدول الدراسي</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 flex min-h-screen">
+
+<div class="main-content w-full">
+  <header class="bg-white shadow-sm p-4 flex justify-between items-center">
+    <h1 class="text-xl font-semibold flex items-center gap-2">
+      <i class="fas fa-calendar-alt text-pink-500"></i> الجدول الدراسي
+    </h1>
+    <div class="flex gap-2">
+      <button class="bg-gray-200 hover:bg-gray-300 px-4 py-1 rounded-full text-sm">EN</button>
+      <button class="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded-full text-sm">تسجيل الخروج</button>
+    </div>
+  </header>
+
+  <main class="p-6">
+    <div class="bg-white rounded-lg shadow-md p-6 overflow-x-auto">
+      <table class="min-w-full table-auto">
+        <thead>
+          <tr class="bg-gray-100 text-gray-700">
+            <th class="px-4 py-2">اليوم</th>
+            <th class="px-4 py-2">الوقت</th>
+            <th class="px-4 py-2">المقرر</th>
+            <th class="px-4 py-2">رابط المحاضرة</th>
+          </tr>
+        </thead>
+        <tbody class="text-gray-600">
+          <tr>
+            <td class="border px-4 py-2">الأحد</td>
+            <td class="border px-4 py-2">8:00 - 10:00</td>
+            <td class="border px-4 py-2">برمجة 1</td>
+            <td class="border px-4 py-2">
+              <a href="https://zoom.us/lecture1" class="text-blue-600 hover:underline" target="_blank">رابط Zoom</a>
+            </td>
+          </tr>
+          <tr>
+            <td class="border px-4 py-2">الاثنين</td>
+            <td class="border px-4 py-2">10:00 - 12:00</td>
+            <td class="border px-4 py-2">رياضيات</td>
+            <td class="border px-4 py-2">
+              <a href="https://zoom.us/lecture2" class="text-blue-600 hover:underline" target="_blank">رابط Zoom</a>
+            </td>
+          </tr>
+          <tr>
+            <td class="border px-4 py-2">الأربعاء</td>
+            <td class="border px-4 py-2">12:00 - 2:00</td>
+            <td class="border px-4 py-2">قواعد بيانات</td>
+            <td class="border px-4 py-2">
+              <a href="https://zoom.us/lecture3" class="text-blue-600 hover:underline" target="_blank">رابط Zoom</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+</body>
+</html>

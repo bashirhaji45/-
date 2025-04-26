@@ -67,7 +67,7 @@
       .then((userCredential) => {
         const user = userCredential.user;
         localStorage.setItem('userId', user.uid);
-        window.location.href = 'home.html';
+        window.location.href = 'page.html';
       })
       .catch((error) => {
         Swal.fire('خطأ', 'البريد الإلكتروني أو كلمة المرور غير صحيحة',  'error');

@@ -3,49 +3,76 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>لوحة التحكم</title>
+  <title>لوحة تحكم المشرف</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
-<body class="bg-gray-50 flex min-h-screen">
+<body class="bg-gray-100 min-h-screen">
 
-<div class="main-content w-full">
-  <header class="bg-white shadow-sm p-4 flex justify-between items-center">
-    <h1 class="text-xl font-semibold flex items-center gap-2">
-      <i class="fas fa-chart-line text-purple-500"></i> لوحة التحكم
-    </h1>
-    <div class="flex gap-2">
-      <button class="bg-gray-200 hover:bg-gray-300 px-4 py-1 rounded-full text-sm">EN</button>
-      <button class="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded-full text-sm">تسجيل الخروج</button>
+  <!-- رأس الصفحة -->
+  <header class="bg-blue-600 text-white p-6 flex justify-between items-center">
+    <h1 class="text-2xl font-bold">لوحة تحكم المشرف</h1>
+    <div class="flex items-center gap-4">
+      <span>مرحبًا، مشرف</span>
+      <button class="bg-red-500 px-4 py-2 rounded-lg" onclick="logout()">تسجيل الخروج</button>
     </div>
   </header>
 
-  <main class="p-6">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="bg-white p-6 rounded-lg shadow flex items-center justify-between">
-        <div>
-          <h2 class="text-lg font-bold">عدد الكورسات</h2>
-          <p class="text-2xl mt-2">5</p>
-        </div>
-        <i class="fas fa-book-open text-blue-500 text-3xl"></i>
-      </div>
-      <div class="bg-white p-6 rounded-lg shadow flex items-center justify-between">
-        <div>
-          <h2 class="text-lg font-bold">عدد الدرجات</h2>
-          <p class="text-2xl mt-2">12</p>
-        </div>
-        <i class="fas fa-certificate text-green-500 text-3xl"></i>
-      </div>
-      <div class="bg-white p-6 rounded-lg shadow flex items-center justify-between">
-        <div>
-          <h2 class="text-lg font-bold">رسائل جديدة</h2>
-          <p class="text-2xl mt-2">3</p>
-        </div>
-        <i class="fas fa-envelope text-red-500 text-3xl"></i>
-      </div>
+  <!-- المحتوى الرئيسي -->
+  <main class="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- رابط إدارة الطلاب -->
+    <div class="bg-white p-6 rounded-lg shadow-lg hover:bg-blue-50">
+      <h2 class="text-xl font-semibold mb-4">إدارة الطلاب</h2>
+      <p class="text-gray-600">إضافة، تعديل، حذف الطلاب.</p>
+      <a href="add-student.html" class="text-blue-600">إذهب إلى الصفحة</a>
+    </div>
+
+    <!-- رابط إدارة المقررات -->
+    <div class="bg-white p-6 rounded-lg shadow-lg hover:bg-blue-50">
+      <h2 class="text-xl font-semibold mb-4">إدارة المقررات الدراسية</h2>
+      <p class="text-gray-600">إضافة، تعديل، حذف المقررات الدراسية.</p>
+      <a href="add-course.html" class="text-blue-600">إذهب إلى الصفحة</a>
+    </div>
+
+    <!-- رابط إدارة الكليات والتخصصات -->
+    <div class="bg-white p-6 rounded-lg shadow-lg hover:bg-blue-50">
+      <h2 class="text-xl font-semibold mb-4">إدارة الكليات والتخصصات</h2>
+      <p class="text-gray-600">إضافة، تعديل الكليات والتخصصات.</p>
+      <a href="manage-colleges.html" class="text-blue-600">إذهب إلى الصفحة</a>
+    </div>
+
+    <!-- رابط إدارة الفصول الدراسية -->
+    <div class="bg-white p-6 rounded-lg shadow-lg hover:bg-blue-50">
+      <h2 class="text-xl font-semibold mb-4">إدارة الفصول الدراسية</h2>
+      <p class="text-gray-600">إضافة، تعديل الفصول الدراسية.</p>
+      <a href="manage-semesters.html" class="text-blue-600">إذهب إلى الصفحة</a>
+    </div>
+
+    <!-- رابط صفحة إعدادات الحسابات -->
+    <div class="bg-white p-6 rounded-lg shadow-lg hover:bg-blue-50">
+      <h2 class="text-xl font-semibold mb-4">إعدادات الحسابات</h2>
+      <p class="text-gray-600">إدارة حسابات المشرفين والطلاب.</p>
+      <a href="account-settings.html" class="text-blue-600">إذهب إلى الصفحة</a>
     </div>
   </main>
-</div>
+
+  <script>
+    // دالة لتسجيل الخروج
+    function logout() {
+      Swal.fire({
+        title: 'هل أنت متأكد؟',
+        text: "سيتم تسجيل خروجك من النظام.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'نعم، سجل الخروج',
+        cancelButtonText: 'إلغاء'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = 'login.html'; // إعادة التوجيه إلى صفحة تسجيل الدخول
+        }
+      });
+    }
+  </script>
 
 </body>
 </html>

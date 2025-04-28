@@ -3,62 +3,92 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>تسجيل حساب</title>
+  <title>تسجيل طالب جديد</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
+<body class="bg-gray-50 min-h-screen">
 
-<body class="bg-gradient-to-br from-green-100 to-green-300 flex items-center justify-center min-h-screen">
+<header class="bg-white shadow-md p-4 flex justify-between items-center">
+  <div class="flex items-center gap-2">
+    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="w-10 h-10" alt="شعار الجامعة">
+    <h1 class="text-xl font-bold">تسجيل طالب جديد</h1>
+  </div>
+</header>
 
-<div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
-  <h2 class="text-2xl font-bold text-center mb-6">تسجيل حساب جديد</h2>
-
-  <form id="signup-form" class="space-y-4">
-    <div>
-      <label class="block mb-1 text-gray-700">اسم الطالب</label>
-      <input type="text" name="name" required class="w-full px-4 py-2 border rounded-lg">
-    </div>
-    <div>
-      <label class="block mb-1 text-gray-700">الرقم الجامعي</label>
-      <input type="text" name="student_id" required class="w-full px-4 py-2 border rounded-lg">
-    </div>
-    <div>
-      <label class="block mb-1 text-gray-700">البريد الإلكتروني</label>
-      <input type="email" name="email" required class="w-full px-4 py-2 border rounded-lg">
-    </div>
-    <div>
-      <label class="block mb-1 text-gray-700">كلمة المرور</label>
-      <input type="password" name="password" required class="w-full px-4 py-2 border rounded-lg">
-    </div>
-    <div>
-      <label class="block mb-1 text-gray-700">الكلية</label>
-      <input type="text" name="faculty" required class="w-full px-4 py-2 border rounded-lg">
-    </div>
-    <div>
-      <label class="block mb-1 text-gray-700">التخصص</label>
-      <input type="text" name="major" required class="w-full px-4 py-2 border rounded-lg">
-    </div>
-    <div>
-      <label class="block mb-1 text-gray-700">الفصل الدراسي</label>
-      <input type="text" name="semester" required class="w-full px-4 py-2 border rounded-lg">
+<main class="p-6">
+  <form id="registration-form" class="bg-white p-6 rounded-lg shadow-md space-y-4">
+    <div class="flex flex-col">
+      <label for="name" class="text-sm font-semibold">الاسم الكامل</label>
+      <input type="text" id="name" name="name" class="border p-2 rounded" required>
     </div>
 
-    <button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 rounded-lg">
-      إنشاء حساب
-    </button>
+    <div class="flex flex-col">
+      <label for="email" class="text-sm font-semibold">البريد الإلكتروني</label>
+      <input type="email" id="email" name="email" class="border p-2 rounded" required>
+    </div>
+
+    <div class="flex flex-col">
+      <label for="password" class="text-sm font-semibold">كلمة المرور</label>
+      <input type="password" id="password" name="password" class="border p-2 rounded" required>
+    </div>
+
+    <div class="flex flex-col">
+      <label for="college" class="text-sm font-semibold">الكلية</label>
+      <select id="college" class="border p-2 rounded" required>
+        <option value="">اختر الكلية</option>
+        <option value="كلية الطب">كلية الطب</option>
+        <option value="كلية الهندسة">كلية الهندسة</option>
+        <option value="كلية العلوم">كلية العلوم</option>
+        <option value="كلية التجارة">كلية التجارة</option>
+        <option value="كلية الأداب">كلية الأداب</option>
+        <option value="كلية التربية">كلية التربية</option>
+        <option value="كلية الشريعة والقانون">كلية الشريعة والقانون</option>
+        <option value="كلية الطب البيطري">كلية الطب البيطري</option>
+        <option value="كلية الزراعة">كلية الزراعة</option>
+        <option value="كلية البيئة">كلية البيئة</option>
+        <option value="كلية الفنون الجميلة والتصميم">كلية الفنون الجميلة والتصميم</option>
+        <option value="كلية السياحة والفنادق">كلية السياحة والفنادق</option>
+        <option value="كلية علوم البحار">كلية علوم البحار</option>
+        <option value="كلية الإعلام">كلية الإعلام</option>
+        <option value="كلية علوم الحاسوب وتكنولوجيا المعلومات">كلية علوم الحاسوب وتكنولوجيا المعلومات</option>
+      </select>
+    </div>
+
+    <div class="flex flex-col">
+      <label for="specialization" class="text-sm font-semibold">التخصص</label>
+      <select id="specialization" class="border p-2 rounded" required>
+        <option value="">اختر التخصص</option>
+      </select>
+    </div>
+
+    <div class="flex flex-col">
+      <label for="semester" class="text-sm font-semibold">الفصل الدراسي</label>
+      <select id="semester" class="border p-2 rounded" required>
+        <option value="">اختر الفصل</option>
+        <option value="الأول">الأول</option>
+        <option value="الثاني">الثاني</option>
+        <option value="الثالث">الثالث</option>
+        <option value="الرابع">الرابع</option>
+        <option value="الخامس">الخامس</option>
+        <option value="السادس">السادس</option>
+        <option value="السابع">السابع</option>
+        <option value="الثامن">الثامن</option>
+        <option value="التاسع">التاسع</option>
+        <option value="العاشر">العاشر</option>
+      </select>
+    </div>
+
+    <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-lg">تسجيل الطالب</button>
   </form>
+</main>
 
-  <p class="mt-4 text-sm text-center text-gray-600">
-    لديك حساب؟ <a href="login.html" class="text-green-600 hover:underline">تسجيل الدخول</a>
-  </p>
-</div>
-<!-- تحميل مكتبات Firebase -->
 <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore-compat.js"></script>
 
 <script>
-  // إعدادات الفايربيس الخاصة بتطبيقك
+  // Firebase config and initialization
   const firebaseConfig = {
     apiKey: "AIzaSyAoh8yHCClXB9n-iv8e-nWuagKvRUG9IPw",
     authDomain: "sudan-auto-hub.firebaseapp.com",
@@ -68,67 +98,96 @@
     appId: "1:918396323666:web:2fcb9092f87217652bdc8b"
   };
 
-  // تهيئة الفايربيس
   firebase.initializeApp(firebaseConfig);
   const auth = firebase.auth();
   const db = firebase.firestore();
 
-  // التعامل مع الفورم
-  document.getElementById('signup-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
+  const collegeSelect = document.getElementById('college');
+  const specializationSelect = document.getElementById('specialization');
 
-    const name = e.target.name.value;
-    const studentId = e.target.student_id.value;
-    const email = e.target.email.value;
-    const password = e.target.password.value;
-    const faculty = e.target.faculty.value;
-    const major = e.target.major.value;
-    const semester = e.target.semester.value;
+  // يتم تحديث التخصصات بناءً على الكلية المختارة
+  const specialties = {
+    "كلية الطب": ["التخصص العام", "الجراحة", "الباطنية", "الأطفال"],
+    "كلية الهندسة": ["الهندسة الكهربائية", "الهندسة المدنية", "الهندسة الميكانيكية", "هندسة البرمجيات"],
+    "كلية العلوم": ["الفيزياء", "الكيمياء", "علوم الحاسوب", "الرياضيات"],
+    "كلية التجارة": ["إدارة الأعمال", "المحاسبة", "الاقتصاد", "التسويق"],
+    "كلية الأداب": ["اللغة العربية", "الإنجليزية", "العلوم الاجتماعية", "العلوم السياسية"],
+    "كلية التربية": ["التربية العامة", "التربية الخاصة", "التعليم الابتدائي", "التعليم الثانوي"],
+    "كلية الشريعة والقانون": ["الفقه", "الشريعة الإسلامية", "القانون المدني", "القانون الدولي"],
+    "كلية الطب البيطري": ["الطب البيطري", "الجراحة البيطرية", "صحة الحيوان"],
+    "كلية الزراعة": ["الزراعة العامة", "الإنتاج الحيواني", "الإرشاد الزراعي", "تكنولوجيا الأغذية"],
+    "كلية البيئة": ["علم البيئة", "إدارة البيئة", "تنمية البيئة"],
+    "كلية الفنون الجميلة والتصميم": ["التصميم الجرافيكي", "الفنون التشكيلية", "الفنون التطبيقية"],
+    "كلية السياحة والفنادق": ["إدارة السياحة", "إدارة الفنادق", "الديكور والفنون"],
+    "كلية علوم البحار": ["علوم البحار", "تكنولوجيا الصيد البحري", "إدارة الموارد البحرية"],
+    "كلية الإعلام": ["الإعلام", "الصحافة", "العلاقات العامة", "الإذاعة والتلفزيون"],
+    "كلية علوم الحاسوب وتكنولوجيا المعلومات": ["علوم الحاسوب", "تقنية المعلومات", "البرمجيات", "الشبكات"]
+  };
 
-    try {
-      // إنشاء حساب بالمصادقة
-      const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-      const user = userCredential.user;
+  // تحديث التخصصات بناءً على الكلية المختارة
+  collegeSelect.addEventListener('change', function() {
+    const selectedCollege = collegeSelect.value;
+    const specializations = specialties[selectedCollege] || [];
+    
+    specializationSelect.innerHTML = "<option value=''>اختر التخصص</option>";
+    specializations.forEach(function(specialization) {
+      const option = document.createElement("option");
+      option.value = specialization;
+      option.textContent = specialization;
+      specializationSelect.appendChild(option);
+    });
+  });
 
-      // حفظ بيانات إضافية في فايرستور
-      await db.collection('students').doc(user.uid).set({
-        name,
-        studentId,
-        email,
-        faculty,
-        major,
-        semester,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+  // إضافة البيانات إلى Firestore عند التسجيل
+  document.getElementById('registration-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const college = collegeSelect.value;
+    const specialization = specializationSelect.value;
+    const semester = document.getElementById('semester').value;
+
+    auth.createUserWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        
+        db.collection("students").doc(user.uid).set({
+          name: name,
+          email: email,
+          college: college,
+          specialization: specialization,
+          semester: semester
+        }).then(() => {
+          // استخدم SweetAlert2 للعرض عند التسجيل بنجاح
+          Swal.fire({
+            icon: 'success',
+            title: 'تم التسجيل بنجاح!',
+            text: 'تم إضافة الطالب إلى النظام بنجاح.',
+            confirmButtonText: 'موافق'
+          });
+        }).catch((error) => {
+          // استخدم SweetAlert2 للعرض عند حدوث خطأ
+          Swal.fire({
+            icon: 'error',
+            title: 'خطأ',
+            text: 'حدث خطأ في إضافة الطالب.',
+            confirmButtonText: 'موافق'
+          });
+        });
+      })
+      .catch((error) => {
+        // استخدم SweetAlert2 للعرض عند حدوث خطأ في التسجيل
+        Swal.fire({
+          icon: 'error',
+          title: 'خطأ في التسجيل',
+          text: 'حدث خطأ أثناء التسجيل، الرجاء المحاولة لاحقاً.',
+          confirmButtonText: 'موافق'
+        });
       });
-
-      // عرض SweetAlert عند النجاح
-      Swal.fire({
-        icon: 'success',
-        title: 'تم إنشاء الحساب بنجاح!',
-        text: 'تم إنشاء حسابك بنجاح، يمكنك الآن تسجيل الدخول',
-        showConfirmButton: true,
-        confirmButtonText: 'انتقل إلى تسجيل الدخول',
-        confirmButtonColor: '#4CAF50', // لون الزر
-        background: 'rgba(255, 255, 255, 0.9)', // خلفية شفافة
-        backdrop: true,
-        timer: 4000, // المدة الزمنية للتنبيه قبل الانتقال
-      }).then(() => {
-        window.location.href = "index.html"; // التوجيه لصفحة تسجيل الدخول
-      });
-
-    } catch (error) {
-      // عرض SweetAlert عند الخطأ
-      Swal.fire({
-        icon: 'error',
-        title: 'خطأ!',
-        text: error.message,
-        showConfirmButton: true,
-        confirmButtonColor: '#FF4136', // لون الزر عند الخطأ
-        background: 'rgba(255, 255, 255, 0.9)', // خلفية شفافة
-        backdrop: true,
-      });
-    }
   });
 </script>
+
 </body>
 </html>
